@@ -1,5 +1,7 @@
 package chapter8
 
+import java.math.BigDecimal
+
 /**
  *컬렉션 처리
  */
@@ -185,4 +187,56 @@ fun main3() {
  * reduceOrNull 사용 가능
  *
  * fold보다 근소하게 빠름
+ */
+
+/**
+ * sum > 컬렉션에 담긴 수 전체를 더함
+ *
+ * 컬렉션에 담긴 덧셈 가능 값을 추출해 더해주는 sumOf함수
+ *
+ */
+
+data class Player(
+    val name: String,
+    val points: Int,
+    val money: BigDecimal,
+)
+
+fun main4() {
+    val players = listOf(
+        Player("Jake", 234, BigDecimal("2.30")),
+        Player("Megan", 567, BigDecimal("1.50")),
+        Player("Beth", 123, BigDecimal("0.00"))
+    )
+
+    println(players.map { it.points }.sum())
+    println(players.sumOf { it.points })
+}
+
+/**
+ * withIndex와 인덱스된 변형 함수들
+ *
+ * 원소의 리스트를 인덱싱된 리스트로 지연 변환해줌
+ *
+ * 변환 결과로 나온 원소 구조 분해 가능
+ */
+
+fun main6() {
+    listOf("A", "B", "C", "D")
+        .withIndex()
+        .filter { (index, value) -> index % 2 == 0 }
+        .map { (index, value) -> "[$index] $value" }
+        .forEach { println(it) }
+}
+
+/**
+ * 다른 변형 함수들과의 차이
+ *
+ * 각 원소에 현재 인덱스 부여, 컬렉션 처리 파이프라인의 전 단계에서 유지
+ */
+
+/**
+ * take, takeLast, drop, dropLast, subList
+ *
+ * 특정 개수의 원소 제거
  */
